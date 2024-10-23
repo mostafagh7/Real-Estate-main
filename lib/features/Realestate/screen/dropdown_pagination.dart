@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:high_q_paginated_drop_down/high_q_paginated_drop_down.dart';
-
+import 'package:real_estate/core/constant/app_colors/app_colors.dart';
+import 'package:real_estate/features/Realestate/widget/dropdown_paginatied.dart';
 import '../../../core/boilerplate/pagination/models/get_list_request.dart';
+import '../../../core/results/result.dart';
 import '../bloc/realestate_bloc.dart';
 import '../bloc/realestate_state.dart';
 import '../data/models/realestate.dart';
@@ -17,40 +18,42 @@ class SSS extends StatelessWidget {
         appBar: AppBar(),
         body: BlocBuilder<RealestateBloc, RealestateState>(
           builder: (context, state) {
-            return HighQPaginatedDropdown<RealestateModel>.paginated(
-              paginatedRequest: (int? page, String? searchText) async {
-                final request = GetListRequest(
-                  page: page,
-                );
-
+            return DropDownPaginated<RealestateModel>(
+              onError: (String? error) {
+                if (kDebugMode) {
+                  print('Error occurred: $error');
+                }
+              },
+              paginatedDataApi: (int? page, String? searchText) async {
+                final request = GetListRequest(page: page);
                 final paginatedData = await context
                     .read<RealestateBloc>()
-                    .fetchAllRealEstate(request); 
+                    .fetchAllRealEstate(request);
 
-                return paginatedData.data!
-                    .map<MenuItemModel<RealestateModel>>((e) {
-                  return MenuItemModel<RealestateModel>(
-                    value: e,
-                    onTap: () {
-                      if (kDebugMode) {
-                        print(e.id);
-                      }
-                    },
-                    label: "label",
-                    child: Text(e.id),
-                  );
-                }).toList();
-              },
-              backgroundDecoration: (Widget child) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.red),
-                  ),
-                  child: child,
+                return Result<List<RealestateModel>>(
+                  data: paginatedData.data,
+                  error: paginatedData.error,
                 );
               },
+              labelBuilder: (RealestateModel value) {
+                return value.id ?? "";
+              },
+              childBuilder: (RealestateModel value) {
+                return ListTile(
+                  title: Text(value.id ?? ""),
+                  subtitle: Text("ID: ${value.id}"),
+                );
+              },
+              onTap: (RealestateModel value) {
+                if (kDebugMode) {
+                  print('Selected ID: ${value.id}');
+                }
+              },
+              icon: Icons.delete,
+              iconColor: AppColors.babyBlue,
+              hintText: "Choose anything",
+              isEnabled: true,
+              leadingIcon: Icons.person,
             );
           },
         ));
