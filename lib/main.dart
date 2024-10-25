@@ -8,6 +8,7 @@ import 'core/constant/app_theme/app_theme.dart';
 import 'features/Realestate/bloc/realestate_bloc.dart';
 import 'features/Realestate/screen/intro.dart';
 import 'features/Realestate/screen/dropdown_pagination.dart';
+import 'features/Realestate/screen/realestate_screen.dart';
 
 SharedPreferences? prefs;
 
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
               title: 'Real Estate',
               theme: appThemeData[AppTheme.light],
               home: prefs!.getString("isFirst") == "yes"
-                  ? const SSS()
+                  ? const RealestateScreen()
                   : const IntroScreen());
         },
       ),

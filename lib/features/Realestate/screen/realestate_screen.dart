@@ -1,4 +1,5 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,12 +9,15 @@ import 'package:real_estate/features/Realestate/data/models/category.dart';
 import 'package:real_estate/features/Realestate/data/models/city.dart';
 import 'package:real_estate/features/Realestate/data/models/realestate.dart';
 import '../../../core/boilerplate/get_model/widgets/get_model.dart';
+import '../../../core/boilerplate/pagination/models/get_list_request.dart';
 import '../../../core/boilerplate/pagination/widgets/pagination_list.dart';
+import '../../../core/results/result.dart';
 import '../../../core/ui/widgets/back_widget.dart';
 import '../bloc/realestate_bloc.dart';
 import '../bloc/realestate_event.dart';
 import '../bloc/realestate_state.dart';
 import '../data/models/names.dart';
+import '../widget/dropdown_paginatied.dart';
 import '../widget/realestate_card.dart';
 import '../widget/dropdown.dart';
 import '../widget/dropdown_shimmer.dart';
@@ -221,6 +225,43 @@ class RealestateScreen extends StatelessWidget {
                                       },
                                     ),
                                   ),
+                                     DropDownPaginated<RealestateModel>(
+                  onError: (String? error) {
+                    if (kDebugMode) {
+                      print('Error occurred: $error');
+                    }
+                  },
+                  paginatedDataApi: (int? page, String? searchText) async {
+                    final request = GetListRequest(page: page);
+                    final paginatedData = await context
+                        .read<RealestateBloc>()
+                        .fetchAllRealEstate(request);
+
+                    return Result<List<RealestateModel>>(
+                      data: paginatedData.data,
+                      error: paginatedData.error,
+                    );
+                  },
+                  labelBuilder: (RealestateModel value) {
+                    return value.id ?? "";
+                  },
+                  childBuilder: (RealestateModel value) {
+                    return ListTile(
+                      title: Text(value.id ?? ""),
+                      subtitle: Text("ID: ${value.id}"),
+                    );
+                  },
+                  onTap: (RealestateModel value) {
+                    if (kDebugMode) {
+                      print('Selected ID: ${value.id}');
+                    }
+                  },
+                  icon: Icons.delete,
+                  iconColor: AppColors.babyBlue,
+                  hintText: "Choose anything",
+                  isEnabled: true,
+                  leadingIcon: Icons.person,
+                ),
                           ],
                         ),
                       ),

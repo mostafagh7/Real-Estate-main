@@ -18,42 +18,202 @@ class SSS extends StatelessWidget {
         appBar: AppBar(),
         body: BlocBuilder<RealestateBloc, RealestateState>(
           builder: (context, state) {
-            return DropDownPaginated<RealestateModel>(
-              onError: (String? error) {
-                if (kDebugMode) {
-                  print('Error occurred: $error');
-                }
-              },
-              paginatedDataApi: (int? page, String? searchText) async {
-                final request = GetListRequest(page: page);
-                final paginatedData = await context
-                    .read<RealestateBloc>()
-                    .fetchAllRealEstate(request);
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    DropDownPaginated<RealestateModel>(
+                      onError: (String? error) {
+                        if (kDebugMode) {
+                          print('Error occurred: $error');
+                        }
+                      },
+                      paginatedDataApi: (int? page, String? searchText) async {
+                        final request = GetListRequest(page: page);
+                        final paginatedData = await context
+                            .read<RealestateBloc>()
+                            .fetchAllRealEstate(request);
 
-                return Result<List<RealestateModel>>(
-                  data: paginatedData.data,
-                  error: paginatedData.error,
-                );
-              },
-              labelBuilder: (RealestateModel value) {
-                return value.id ?? "";
-              },
-              childBuilder: (RealestateModel value) {
-                return ListTile(
-                  title: Text(value.id ?? ""),
-                  subtitle: Text("ID: ${value.id}"),
-                );
-              },
-              onTap: (RealestateModel value) {
-                if (kDebugMode) {
-                  print('Selected ID: ${value.id}');
-                }
-              },
-              icon: Icons.delete,
-              iconColor: AppColors.babyBlue,
-              hintText: "Choose anything",
-              isEnabled: true,
-              leadingIcon: Icons.person,
+                        return Result<List<RealestateModel>>(
+                          data: paginatedData.data,
+                          error: paginatedData.error,
+                        );
+                      },
+                      labelBuilder: (RealestateModel value) {
+                        return value.id ?? "";
+                      },
+                      childBuilder: (RealestateModel value) {
+                        return ListTile(
+                          title: Text(value.id ?? ""),
+                          subtitle: Text("ID: ${value.id}"),
+                        );
+                      },
+                      onTap: (RealestateModel value) {
+                        if (kDebugMode) {
+                          print('Selected ID: ${value.id}');
+                        }
+                      },
+                      icon: Icons.delete,
+                      iconColor: AppColors.babyBlue,
+                      hintText: "Choose anything",
+                      isEnabled: true,
+                      leadingIcon: Icons.person,
+                    ),
+                    DropDownPaginated<RealestateModel>(
+                      onError: (String? error) {
+                        if (kDebugMode) {
+                          print('Error occurred: $error');
+                        }
+                      },
+                      paginatedDataApi: (int? page, String? searchText) async {
+                        final request = GetListRequest(page: page);
+                        final paginatedData = await context
+                            .read<RealestateBloc>()
+                            .fetchAllRealEstate(request);
+
+                        return Result<List<RealestateModel>>(
+                          data: paginatedData.data,
+                          error: paginatedData.error,
+                        );
+                      },
+                      labelBuilder: (RealestateModel value) {
+                        return value.id ?? "";
+                      },
+                      childBuilder: (RealestateModel value) {
+                        return ListTile(
+                          title: Text(value.id ?? ""),
+                          subtitle: Text("ID: ${value.id}"),
+                        );
+                      },
+                      onTap: (RealestateModel value) {
+                        if (kDebugMode) {
+                          print('Selected ID: ${value.id}');
+                        }
+                      },
+                      icon: Icons.delete,
+                      iconColor: AppColors.babyBlue,
+                      hintText: "Choose anything",
+                      isEnabled: true,
+                      leadingIcon: Icons.person,
+                    ),
+                  ],
+                ),
+                DropDownPaginated<RealestateModel>(
+                  onError: (String? error) {
+                    if (kDebugMode) {
+                      print('Error occurred: $error');
+                    }
+                  },
+                  paginatedDataApi: (int? page, String? searchText) async {
+                    final request = GetListRequest(page: page);
+                    final paginatedData = await context
+                        .read<RealestateBloc>()
+                        .fetchAllRealEstate(request);
+
+                    return Result<List<RealestateModel>>(
+                      data: paginatedData.data,
+                      error: paginatedData.error,
+                    );
+                  },
+                  labelBuilder: (RealestateModel value) {
+                    return value.id ?? "";
+                  },
+                  childBuilder: (RealestateModel value) {
+                    return ListTile(
+                      title: Text(value.id ?? ""),
+                      subtitle: Text("ID: ${value.id}"),
+                    );
+                  },
+                  onTap: (RealestateModel value) {
+                    if (kDebugMode) {
+                      print('Selected ID: ${value.id}');
+                    }
+                  },
+                  icon: Icons.delete,
+                  iconColor: AppColors.babyBlue,
+                  hintText: "Choose anything",
+                  isEnabled: true,
+                  leadingIcon: Icons.person,
+                ),
+                Row(
+                  children: [
+                    DropDownPaginated<RealestateModel>(
+                      onError: (String? error) {
+                        if (kDebugMode) {
+                          print('Error occurred: $error');
+                        }
+                      },
+                      paginatedDataApi: (int? page, String? searchText) async {
+                        final request = GetListRequest(page: page);
+                        final paginatedData = await context
+                            .read<RealestateBloc>()
+                            .fetchAllRealEstate(request);
+
+                        return Result<List<RealestateModel>>(
+                          data: paginatedData.data,
+                          error: paginatedData.error,
+                        );
+                      },
+                      labelBuilder: (RealestateModel value) {
+                        return value.id ?? "";
+                      },
+                      childBuilder: (RealestateModel value) {
+                        return ListTile(
+                          title: Text(value.id ?? ""),
+                          subtitle: Text("ID: ${value.id}"),
+                        );
+                      },
+                      onTap: (RealestateModel value) {
+                        if (kDebugMode) {
+                          print('Selected ID: ${value.id}');
+                        }
+                      },
+                      icon: Icons.delete,
+                      iconColor: AppColors.babyBlue,
+                      hintText: "Choose anything",
+                      isEnabled: true,
+                      leadingIcon: Icons.person,
+                    ),
+                    DropDownPaginated<RealestateModel>(
+                      onError: (String? error) {
+                        if (kDebugMode) {
+                          print('Error occurred: $error');
+                        }
+                      },
+                      paginatedDataApi: (int? page, String? searchText) async {
+                        final request = GetListRequest(page: page);
+                        final paginatedData = await context
+                            .read<RealestateBloc>()
+                            .fetchAllRealEstate(request);
+
+                        return Result<List<RealestateModel>>(
+                          data: paginatedData.data,
+                          error: paginatedData.error,
+                        );
+                      },
+                      labelBuilder: (RealestateModel value) {
+                        return value.id ?? "";
+                      },
+                      childBuilder: (RealestateModel value) {
+                        return ListTile(
+                          title: Text(value.id ?? ""),
+                          subtitle: Text("ID: ${value.id}"),
+                        );
+                      },
+                      onTap: (RealestateModel value) {
+                        if (kDebugMode) {
+                          print('Selected ID: ${value.id}');
+                        }
+                      },
+                      icon: Icons.delete,
+                      iconColor: AppColors.babyBlue,
+                      hintText: "Choose anything",
+                      isEnabled: true,
+                      leadingIcon: Icons.person,
+                    ),
+                  ],
+                )
+              ],
             );
           },
         ));
